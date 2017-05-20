@@ -25,5 +25,8 @@
     "jade": "^1.11.0",
     "moment": "^2.15.1",
     "mongoose": "^4.6.4"
+  },
+  "dependencies": {
+    "morgan": "^1.8.1"
   }
 }
