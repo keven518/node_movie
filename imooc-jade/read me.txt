@@ -1,0 +1,3 @@
+npm i -g jade
+jade -P -w index.jade
+jade index3.jade -P -w -O imooc.json

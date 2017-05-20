@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html></html><!--[if IE 8]><html class='ie8'><![endif]-->
+<!--[if IE 9]><html class='ie9'><![endif]-->
+<!--[if !IE]><!--><html><!--<![endif]-->
+<head>
+  <meta charset="UTF-8">
+  <title>keven and CAIMANMAN jade study</title>
+</head>
+<body>
+  <h3>模板继承</h3>
+  <h2>mixin</h2>
+    <p>keven jade study</p>
+    <p>caimanman 我爱你</p>
+    <ul class="courses">
+      <li>jade</li>
+      <li>node</li>
+      <li>java</li>
+    </ul>
+  <h3>嵌套mixin</h3>
+    <h4>keven</h4>
+      <p>keven 我爱你</p>
+      <ul class="courses">
+        <li>js</li>
+        <li>java</li>
+        <li>node</li>
+        <li>php</li>
+      </ul>
+  <h3>mixin内联代码块</h3>
+    <h4>slogon</h4>
+    <p>Good job<a id="kv">kewen</a></p>
+  <h3>mixin传递属性</h3>
+    <p class="magic">attr</p>
+    <div>magic</div><span>attrid</span>
+    <p id="attrid" title="kv" class="magic2">attrs</p>
+    <ul class="php">
+      <li>java</li>
+      <li>node</li>
+      <li>c++</li>
+      <li>js</li>
+      <li>angular</li>
+      <li>...</li>
+    </ul>
+  <h2>流程</h2>
+  <h3>if else</h3>
+  <p>more than 1: jade, node</p>
+  <h3>unless</h3>
+  <p>2</p>
+  <h3>case</h3>
+  <p>Hi jade_keven</p>
+  <h3>for</h3>
+  <p>jadekv</p>
+  <p>highkv</p>
+  <h3>for each</h3>
+  <p>course: jade</p>
+  <p>level: high</p>
+  <p>course: jade</p>
+  <p>level: high</p>
+  <h3>each遍历数组</h3>
+  <p>kv</p>
+  <p>cmm</p>
+  <p>cw</p>
+  <p>cj</p>
+  <p>cp</p>
+  <h3>each 嵌套使用</h3>
+  <dl>
+    <dt>1</dt>
+    <dd>a</dd>
+    <dd>b</dd>
+    <dt>2</dt>
+    <dd>c</dd>
+    <dd>d</dd>
+  </dl>
+  <h3>while</h3>
+  <ul>
+    <li>0</li>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+  </ul>
+  <h2>转义</h2>
+  <p>text</p>
+  <!--转义字符-->
+  <p>&lt;script&gt;alert(1);&lt;/script&gt;&lt;span&gt;script&lt;/span&gt;; </p>
+  <!--转义字符 end-->
+  <!--非转义字符-->
+  <p><script>alert(1);</script><span>script</span>;</p>
+  <!--非转义字符 end-->
+  <p>text</p>
+  <p>&lt;script&gt;alert(1);&lt;/script&gt;&lt;span&gt;script&lt;/span&gt;;</p>
+  <p><script>alert(1);</script><span>script</span>;</p>
+  <p>!{htmlData}</p>
+  <p>#{htmlData}</p>
+  <p>\{htmlData}</p>
+  <p>{htmlData}</p>
+  <input value="0">
+  <input>
+  <style>body{color: #f60}</style>
+  <script>var imoocCourse = 'jade'</script>
+  <h3>文档声明和头尾标签</h3>
+  <h3>jade_keven标签语法</h3>
+  <section>
+    <div>
+      <ul></ul>
+      <p></p>
+    </div>
+  </section>
+  <div id="id" class="class1 class2"><a href="http://www.qq.com">link</a></div>
+  <h3>注释</h3>
+  <h3>单行注释</h3>
+  <!-- h3.title(id='kv', class='cmm') 520cmm-->
+  <h3>非缓冲注释</h3>
+  <h1 id="tit" data="keven" title="kv" class="title title2 title3">keven jade study very ok</h1>
+  <div id="id" class="classname"><a href="http://www.baidu.com" title="kvwen" data-uid="888">柯文</a></div>
+  <section></section>
+  <input name="course" type="text" value="jade">
+  <input name="type" type="checkbox" checked>
+  <div></div>
+  <h3>混排的大段文本</h3>
+  <p>
+    1.aa<strong>11</strong>
+    2.bb
+    <strong>22</strong>
+    3.cc
+    4.dd
+  </p>
+  <p>
+    1.aa<strong>11</strong>
+    2.bb
+    <span>22</span>
+    3.cc
+    4.dd
+  </p>
+  <ul></ul><span>1.aa<strong>11</strong>2.bb
+    3.c<span>12</span>4.dd<a>kewen</a></span><strong></strong>
+  <hr><br>
+</body></html>

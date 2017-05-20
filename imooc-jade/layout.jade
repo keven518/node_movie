@@ -1,0 +1,14 @@
+doctype html
+html
+<!--[if IE 8]><html class='ie8'><![endif]-->
+<!--[if IE 9]><html class='ie9'><![endif]-->
+<!--[if !IE]><!--><html><!--<![endif]-->
+head
+  meta(charset="UTF-8")
+  - var course = 'caimanman'
+  title keven and #{course.toUpperCase()} jade study
+body
+  block desc
+    p desc from layout
+  block content
+</html>

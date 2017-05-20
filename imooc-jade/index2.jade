@@ -1,0 +1,59 @@
+doctype html
+html
+<!--[if IE 8]><html class='ie8'><![endif]-->
+<!--[if IE 9]><html class='ie9'><![endif]-->
+<!--[if !IE]><!--><html><!--<![endif]-->
+head
+  meta(charset="UTF-8")
+  title keven jade study
+body
+  style.
+    body{color: #f60}
+  script.
+    var imoocCourse = 'jade'
+  h3 文档声明和头尾标签
+  h3 标签语法
+  section
+    div
+      ul
+      p
+  div#id.class1.class2
+    a(href='http://www.qq.com') link
+  h3 注释
+  h3 单行注释
+  // h3.title(id='kv', class='cmm') 520cmm
+  h3 非缓冲注释
+  //- #id.classname
+  h1.title.title2#tit(class='title3',data='keven',title='kv') keven jade study very ok
+  #id.classname
+    a(href='http://www.baidu.com',title='kvwen',data-uid='888') 柯文
+  section
+  input(name='course', type='text', value='jade')
+  input(name='type', type='checkbox', checked)
+  div
+  h3 混排的大段文本
+  p.
+    1.aa<strong>11</strong>
+    2.bb
+    <strong>22</strong>
+    3.cc
+    4.dd
+  p.
+    1.aa<strong>11</strong>
+    2.bb
+    <span>22</span>
+    3.cc
+    4.dd
+  ul
+  span
+    |1.aa
+    strong 11
+    |2.bb
+    |3.c
+    span 12
+    |4.dd
+    a kewen
+  strong
+  hr
+  br
+</html>
