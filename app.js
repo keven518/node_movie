@@ -2,8 +2,8 @@ var express = require('express');
 var path = require('path');  //静态文件路径
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var Movie = require('./models/movie');
-var User = require('./models/user');
+var Movie = require('./app/models/movie');
+var User = require('./app/models/user');
 var _ = require('underscore');
 var settings = require('./settings');
 var port = process.env.PORT || 3000;
@@ -15,7 +15,7 @@ var app = express();
 
 mongoose.connect(settings.url);
 
-app.set('views', './views/pages');  //视图文件路径
+app.set('views', './app/views/pages');  //视图文件路径
 app.set('view engine', 'jade');
 app.use(cookieParser());
 app.use(session({
@@ -32,9 +32,9 @@ app.use(session({
 
 if ('development' === app.get('env')) {
 	app.set('showStackError', true);
-	app.use(logger(':method :url :status'));
-	app.locals.pretty = true;
-	mongoose.set('debug', true);
+	app.use(logger(':method :url :status'));  //返回请求信息
+	app.locals.pretty = true;                 //不压缩代码
+	mongoose.set('debug', true);              // mongoose日志
 }
 
 
