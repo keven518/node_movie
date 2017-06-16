@@ -1,7 +1,21 @@
+var express = require('express');
+var app = express();
 var bodyParser = require('body-parser');
 var User = require('../models/user');
 
 // signup
+exports.showSignup = function(req, res) {
+  res.render('signup', {
+    title: '注册页面'
+  });
+}; 
+
+exports.showSignin = function(req, res) {
+  res.render('signin', {
+    title: '登录页面'
+  });
+}; 
+
 exports.signup = function(req, res){
   var _user = req.body;
   // res.send(req.body + ':' + req.param('name'));
@@ -11,12 +25,15 @@ exports.signup = function(req, res){
     if (err) {
       console.log(err);
     }
+  console.log('user.length: ');
+  console.log(user.length);
 
     if(user.length) {
-      // return res.redirect('/');
-      res.send('用户名已被占用');
+      return res.redirect('/signin');
     }else{
       var user = new User(_user);
+      console.log('user:');
+      console.log(user);
       user.save(function(err, user) {
         if(err){
           console.log(err)
@@ -45,8 +62,9 @@ exports.signin = function(req, res) {
       console.log(err)
     }
 
-    if(user.length){
-      return res.redirect('/');
+
+    if(!user){
+      return res.redirect('/signup');
     }
 
     user.comparePassword(password, function(err, isMatch) {
@@ -62,6 +80,7 @@ exports.signin = function(req, res) {
 
       else {
         console.log('password is not matched')
+        return res.redirect('/signin');        
       }
 
 
@@ -72,14 +91,16 @@ exports.signin = function(req, res) {
 
 //logout
 exports.logout = function(req, res) {
-  // delete req.session.user;
-  // delete app.locals.user;
+  delete req.session.user;
+  delete app.locals.user;
 
   res.redirect('/');
 }
 
 // userlist page
 exports.list = function(req, res) {
+  var _user = req.session.user;
+
   User.fetch(function(err, user){
     if(err) {
       console.log(err);
@@ -87,8 +108,50 @@ exports.list = function(req, res) {
 
     res.render('userlist', {
       title: 'kv 用户列表页',
-      user: user
+      users: user,
+      user: _user
     });
     // res.send(user);
   });
+}; 
+
+exports.detail = function(req, res) {
+  var id = req.params.id;
+  // res.send(id);
+  User.findById(id, function(err, user){
+    if(err) {
+      console.log(err);
+    }
+    res.json(user);
+    // res.render('detail', {
+    //   title: user.title,
+    //   movies: user
+    // });
+    // res.send(movie + movie.title);
+  })
+}
+
+// midware for user
+exports.signinRequired = function(req, res, next) {
+  var user = req.session.user;
+  
+  if (!user) {
+    return res.redirect('/signin');
+  }
+
+  next();
+}; 
+
+// midware for admin
+exports.adminRequired = function(req, res, next) {
+  var user = req.session.user;
+
+  console.log('adminRequired_user.role: ');
+  console.log(user.role);
+
+  if (user.role <= 10) {
+    return res.redirect('/signin');
+  }
+
+  next();
 }; 

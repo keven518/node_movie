@@ -8,10 +8,16 @@ var UserSchema = new mongoose.Schema({
 		type: String
 	},
 	password: String,
-	createAt: {
-			type: Date,
-			datault: Date.now()
-		},
+	// 0: nomal user
+	// 1: verified user
+	// 2: professonal user
+
+	// >10: admin
+	// >50: super admin
+	role: {
+		type: Number,
+		default: 0
+	},
 	meta: {
 		createAt: {
 			type: Date,
@@ -21,6 +27,10 @@ var UserSchema = new mongoose.Schema({
 			type: Date,
 			datault: Date.now()
 		}
+	},
+	age: {
+		type: Number,
+		default: 18
 	}
 })
 

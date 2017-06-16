@@ -1,20 +1,29 @@
 var bodyParser = require('body-parser');
 var Movie = require('../models/movie');
+var Comment = require('../models/comment');
 var User = require('../models/user');
 var _ = require('underscore');
 
 // detail page
 exports.detail = function(req, res) {
   var id = req.params.id;
+  var user = req.session.user;
   Movie.findById(id, function(err, movie){
     if(err) {
       console.log(err);
     }
-    res.render('detail', {
-      title: movie.title,
-      movies: movie
-    });
-    // res.send(movie + movie.title);
+    Comment
+      .find({movie: id})
+      .populate('from', 'name')
+      .exec(function(err, comments) {
+        console.log('comments: ');
+        console.log(comments);
+        res.render('detail', {
+          title: movie.title,
+          movies: movie,
+          comments: comments
+        });      
+      })
   })
 };
 
