@@ -2,6 +2,7 @@
 var Index = require('../app/controllers/index');
 var User = require('../app/controllers/user');
 var Movie = require('../app/controllers/movie');
+var Category = require('../app/controllers/category');
 var Comment = require('../app/controllers/comment');
 // var _ = require('underscore');
 
@@ -11,10 +12,10 @@ module.exports = function(app) {
   app.use(function(req, res, next) {
     var _user = req.session.user;
 
-    if(_user) {
-      app.locals.user = _user;
-    }
-
+    app.locals.user = _user;
+    
+    console.log('kj:')
+    console.dir(_user);
       next();
   })
 
@@ -39,7 +40,12 @@ module.exports = function(app) {
   app.delete('/admin/movie/list', User.signinRequired, User.adminRequired, Movie.del);
 
   // comment
-  app.post('/user/comment', User.signinRequired, Comment.save)
+  app.post('/user/comment', User.signinRequired, Comment.save);
+
+  //Category
+  app.get('/admin/category/new', User.signinRequired, Category.new)
+  app.post('/admin/category', User.signinRequired, Category.save);
+  app.get('/admin/category/list', User.signinRequired, Category.list);
 
   
 }

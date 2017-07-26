@@ -1,5 +1,5 @@
-var bodyParser = require('body-parser');
 var Movie = require('../models/movie');
+var Category = require('../models/category');
 var Comment = require('../models/comment');
 var User = require('../models/user');
 var _ = require('underscore');
@@ -15,6 +15,7 @@ exports.detail = function(req, res) {
     Comment
       .find({movie: id})
       .populate('from', 'name')
+      .populate('reply.from reply.to', 'name')
       .exec(function(err, comments) {
         console.log('comments: ');
         console.log(comments);
@@ -29,18 +30,12 @@ exports.detail = function(req, res) {
 
 // admin new page
 exports.new = function(req, res) {
-  res.render('admin', {
-    title: 'kv 后台录入页',
-    movie: {
-      title: '',
-      director: '',
-      country: '',
-      year: '',
-      poster: '',
-      flash: '',
-      summary: '',
-      language: ''
-    }
+  Category.find({}, function(err, categories) {
+    res.render('admin', {
+      title: 'kv 后台录入页',
+      categories: categories,
+      movie: {}
+    })    
   })
 };
 
@@ -50,9 +45,14 @@ exports.update = function(req, res) {
 
   if(id) {
     Movie.findById(id, function(err, movie) {
-      res.render('admin', {
-        title: 'kv 后台更新页',
-        movie:movie
+      Category.find({}, function(err, categories) {
+        console.log('movie:');
+        console.log(movie);
+        res.render('admin', {
+          title: 'kv 后台更新页',
+          movie:movie,
+          categories: categories
+        })
       })
     })
   }
@@ -68,14 +68,20 @@ exports.save = function(req, res) {
     country:req.body.country,
     language:req.body.language,
     year:req.body.year,
+    category: req.body.cateName,
     summary:req.body.summary,
     poster:req.body.poster,
     flash:req.body.flash
   };
+  console.log('movie.save:');
+  console.log(req.body);
+  console.log('id:');
+  console.log(id);
+  console.log(!!id);
   var _movie;
   // res.send(movieObj);
 
-  if(id !== 'undefined') {
+  if(!!id) {
     Movie.findById(id, function(err, movie){
       if(err){
         console.log(err);
@@ -90,23 +96,22 @@ exports.save = function(req, res) {
       })
     })
   }else {
-    _movie = new Movie({
-      director: movieObj.director,
-      title: movieObj.title,
-      country: movieObj.country,
-      language: movieObj.language,
-      year: movieObj.year,
-      poster: movieObj.poster,
-      summary: movieObj.summary,
-      flash: movieObj.flash
-    });
+    _movie = new Movie(movieObj);
+
+    var categoryId = _movie.category;
 
     _movie.save(function(err, movie) {
       if(err) {
         console.log(err)
       }
 
-      res.redirect('/movie/' + movie.id)
+      Category.findById(categoryId, function(err, category) {
+        category.movies.push(movie._id);
+
+        category.save(function(err, category) {          
+          res.redirect('/movie/' + movie.id)
+        })
+      })
     })
   }
 };

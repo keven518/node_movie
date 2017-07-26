@@ -21,14 +21,12 @@ exports.signup = function(req, res){
   // res.send(req.body + ':' + req.param('name'));
   console.log(req.body);
 
-  User.find({name: _user.name}, function(err, user) {
+  User.findOne({name: _user.name}, function(err, user) {
     if (err) {
       console.log(err);
     }
-  console.log('user.length: ');
-  console.log(user.length);
 
-    if(user.length) {
+    if(user) {
       return res.redirect('/signin');
     }else{
       var user = new User(_user);
@@ -79,7 +77,7 @@ exports.signin = function(req, res) {
       }
 
       else {
-        console.log('password is not matched')
+        console.log('password is not matched');
         return res.redirect('/signin');        
       }
 
@@ -92,7 +90,7 @@ exports.signin = function(req, res) {
 //logout
 exports.logout = function(req, res) {
   delete req.session.user;
-  delete app.locals.user;
+  // delete app.locals.user;
 
   res.redirect('/');
 }
